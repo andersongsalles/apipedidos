@@ -15,7 +15,7 @@ import javax.persistence.ManyToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Produto implements Serializable {	
+public class Produto  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -26,12 +26,13 @@ public class Produto implements Serializable {
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", 
+	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = @JoinColumn(name = "produto_id"),
 		inverseJoinColumns = @JoinColumn(name = "categoria_id")
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+
 	public Produto() {
 	}
 
@@ -42,6 +43,7 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 
+		
 	public Integer getId() {
 		return id;
 	}
@@ -66,14 +68,15 @@ public class Produto implements Serializable {
 		this.preco = preco;
 	}
 
-	public List<Categoria> getCategoria() {
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategoria(List<Categoria> categoria) {
-		this.categorias = categoria;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,4 +102,5 @@ public class Produto implements Serializable {
 		return true;
 	}
 	
+
 }
