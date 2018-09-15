@@ -1,5 +1,6 @@
 package br.com.devapps.apipedido;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.devapps.apipedido.domain.Categoria;
 import br.com.devapps.apipedido.domain.Cidade;
+import br.com.devapps.apipedido.domain.Cliente;
+import br.com.devapps.apipedido.domain.Endereco;
 import br.com.devapps.apipedido.domain.Estado;
 import br.com.devapps.apipedido.domain.Produto;
+import br.com.devapps.apipedido.enums.TipoCliente;
 import br.com.devapps.apipedido.repositories.CategoriaRepository;
 import br.com.devapps.apipedido.repositories.CidadeRepository;
+import br.com.devapps.apipedido.repositories.ClienteRepository;
+import br.com.devapps.apipedido.repositories.EnderecoRepository;
 import br.com.devapps.apipedido.repositories.EstadoRepository;
 import br.com.devapps.apipedido.repositories.ProdutoRepository;
+import ch.qos.logback.core.net.server.Client;
 
 @SpringBootApplication
 public class ApipedidoApplication implements CommandLineRunner{
@@ -23,12 +30,16 @@ public class ApipedidoApplication implements CommandLineRunner{
 	private CategoriaRepository categoriaRepository;	
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
 	@Autowired
 	private EstadoRepository estadoRepository;
-	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApipedidoApplication.class, args);
@@ -67,11 +78,17 @@ public class ApipedidoApplication implements CommandLineRunner{
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1,c2,c3));
 		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1,c1);
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1,c2);
 		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
 		
-		
+		clienteRepository.save(Arrays.asList(cli1));
+		enderecoRepository.save(Arrays.asList(e1, e2));
 		
 		
 		
