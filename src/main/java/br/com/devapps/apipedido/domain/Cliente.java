@@ -28,6 +28,7 @@ public class Cliente implements Serializable {
 	private String cpfCnpj;
 	private Integer tipo;
 	
+	
 	@OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	

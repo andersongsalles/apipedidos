@@ -1,6 +1,5 @@
 package br.com.devapps.apipedido;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import br.com.devapps.apipedido.repositories.ClienteRepository;
 import br.com.devapps.apipedido.repositories.EnderecoRepository;
 import br.com.devapps.apipedido.repositories.EstadoRepository;
 import br.com.devapps.apipedido.repositories.ProdutoRepository;
-import ch.qos.logback.core.net.server.Client;
 
 @SpringBootApplication
 public class ApipedidoApplication implements CommandLineRunner{
