@@ -13,6 +13,7 @@ import br.com.devapps.apipedido.domain.Cidade;
 import br.com.devapps.apipedido.domain.Cliente;
 import br.com.devapps.apipedido.domain.Endereco;
 import br.com.devapps.apipedido.domain.Estado;
+import br.com.devapps.apipedido.domain.ItemPedido;
 import br.com.devapps.apipedido.domain.Pagamento;
 import br.com.devapps.apipedido.domain.PagamentoComBoleto;
 import br.com.devapps.apipedido.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import br.com.devapps.apipedido.repositories.CidadeRepository;
 import br.com.devapps.apipedido.repositories.ClienteRepository;
 import br.com.devapps.apipedido.repositories.EnderecoRepository;
 import br.com.devapps.apipedido.repositories.EstadoRepository;
+import br.com.devapps.apipedido.repositories.ItemPedidoRepository;
 import br.com.devapps.apipedido.repositories.PagamentoRepository;
 import br.com.devapps.apipedido.repositories.PedidoRepository;
 import br.com.devapps.apipedido.repositories.ProdutoRepository;
@@ -48,7 +50,8 @@ public class ApipedidoApplication implements CommandLineRunner{
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 
 	public static void main(String[] args) {
@@ -113,11 +116,20 @@ public class ApipedidoApplication implements CommandLineRunner{
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		
 		pedidoRepository.save(Arrays.asList(ped1, ped2));
-		
 		pagamentoRepository.save(Arrays.asList(pagto1, pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 0.00, 1, 800.00);
 		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
 		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
 		
 		
 		
@@ -132,4 +144,6 @@ public class ApipedidoApplication implements CommandLineRunner{
 				
 		
 	}
+
+	
 }
